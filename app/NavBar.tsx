@@ -1,7 +1,10 @@
 // navbar is only on the 
+'use client'
 import Link from 'next/link'
 import React from 'react'
 import { IoBugSharp } from "react-icons/io5";
+import { usePathname } from 'next/navigation';
+import classNames from 'classnames';
 
 const NavBar = () => {
     // create an array item for each item on our navbar
@@ -9,7 +12,9 @@ const NavBar = () => {
         { label: 'Dashboard', href: '/' },
         { label: 'Issues', href: '/issues' }
     ]
-  
+    
+    const currentPath = usePathname();
+
     return (
     <nav className='flex space-x-6 border-b mb-5 px-5 h-14 items-center'>
         <Link href="/"><IoBugSharp /></Link>
@@ -17,7 +22,11 @@ const NavBar = () => {
             {links.map(link =>
             <Link
                 key={link.href}
-                className='text-stone-300 hover:text-stone-600 transition-colors'
+                className={classNames({
+                    'text-zinc-900': link.href === currentPath,
+                    'text-zinc-500': link.href !== currentPath,
+                    'hover:text-zinc-700 transition-colors': true
+                })}
                 href={link.href}>{link.label}
             </Link>)}
 
