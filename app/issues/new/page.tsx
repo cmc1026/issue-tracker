@@ -25,7 +25,7 @@ const NewIssuePage = () => {
     });
     const router = useRouter();
     const [ error, setError ] = useState('');
-    
+    const [ isSubmitting, setSubmitting] = useState(false);
 
     return (
         <div className='max-w-xl'>
@@ -37,9 +37,11 @@ const NewIssuePage = () => {
                 className='space-y-3' 
                 onSubmit={handleSubmit(async (data) => {
                     try {
+                        setSubmitting(true);
                         await axios.post('/api/issues', data);
                         router.push('/issues');
                     } catch (error) {
+                        setSubmitting(false);
                         setError('An unexspected error occurred');
                         
                     }
@@ -62,7 +64,7 @@ const NewIssuePage = () => {
                     {errors.description?.message}
                 </ErrorMessage>
                 
-                <Button>Submit New Issue <Spinner />
+                <Button disable={isSubmitting}>Submit New Issue { isSubmitting && <Spinner />}
                 </Button>
             </form>
         </div>
