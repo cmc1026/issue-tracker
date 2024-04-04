@@ -14,7 +14,6 @@ import ErrorMessage from '@/app/Components/ErrorMessage';
 import Spinner from '@/app/Components/spinner';
 
 
-
 type IssueForm = z.infer<typeof issueSchema>;
 
 
@@ -26,6 +25,16 @@ const NewIssuePage = () => {
     const router = useRouter();
     const [ error, setError ] = useState('');
     const [ isSubmitting, setSubmitting] = useState(false);
+    const onSubmit = handleSubmit(async (data) => {
+        try {
+            setSubmitting(true);
+            await axios.post('/api/issues', data);
+            router.push('/issues');
+        } catch (error) {
+            setSubmitting(false);
+            setError('An unexspected error occurred'); 
+        }
+        });
 
     return (
         <div className='max-w-xl'>
@@ -35,18 +44,7 @@ const NewIssuePage = () => {
             )}
             <form 
                 className='space-y-3' 
-                onSubmit={handleSubmit(async (data) => {
-                    try {
-                        setSubmitting(true);
-                        await axios.post('/api/issues', data);
-                        router.push('/issues');
-                    } catch (error) {
-                        setSubmitting(false);
-                        setError('An unexspected error occurred');
-                        
-                    }
-                
-                })}>
+                onSubmit={onSubmit}>
                 
                 <TextField.Root>
                     <TextField.Input placeholder='Title' {...register('title')} />
