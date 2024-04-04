@@ -3,12 +3,12 @@ import './theme-config.css';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import NavBar from './NavBar';
 import { Theme, ThemePanel } from '@radix-ui/themes';
+import NavBar from './NavBar';
 
 const inter = Inter({ 
   subsets: ['latin'],
-  variable: '..font-inter',
+  variable: '--font-inter',
 })
 
 export const metadata: Metadata = {
