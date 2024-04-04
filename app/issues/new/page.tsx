@@ -25,7 +25,7 @@ const NewIssuePage = () => {
     });
     const router = useRouter();
     const [ error, setError ] = useState('');
-    //console.log(register('title')) *** For testing
+    
 
     return (
         <div className='max-w-xl'>
@@ -41,7 +41,7 @@ const NewIssuePage = () => {
                         router.push('/issues');
                     } catch (error) {
                         setError('An unexspected error occurred');
-                        //console.log(error)
+                        
                     }
                 
                 })}>
